@@ -1,0 +1,28 @@
+<h2 mat-dialog-title>Add Event</h2>
+<div mat-dialog-content>
+  <mat-form-field appearance="fill">
+    <mat-label>Event Title</mat-label>
+    <input matInput [(ngModel)]="title" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>End Date</mat-label>
+    <input matInput [matDatepicker]="picker" [(ngModel)]="endDate" [min]="data.startDate"/>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Priority</mat-label>
+    <mat-select [(ngModel)]="priority">
+      <mat-option *ngFor="let p of priorities" [value]="p.value">
+        {{ p.viewValue }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-button color="primary" (click)="onAddEvent()">Add Event</button>
+
+</div>

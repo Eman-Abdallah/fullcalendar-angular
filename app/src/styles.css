@@ -1,1 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.high-priority-event {
+  background-color: #ff5733 !important; /* Bright red */
+  color: white !important;
+  padding: 10px !important;
+}
+
+.medium-priority-event {
+  background-color: #f1c40f !important; /* Yellow */
+  color: black !important;
+  padding: 10px !important;
+}
+
+.low-priority-event {
+  background-color: #2ecc71 !important; /* Green */
+  color: white !important;
+  padding: 10px !important;
+}

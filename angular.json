@@ -1,5 +1,8 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": false
+  },
   "version": 1,
   "newProjectRoot": ".",
   "projects": {
@@ -54,6 +57,7 @@
             "polyfills": "app/src/polyfills.ts",
             "tsConfig": "app/tsconfig.app.json",
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "app/src/styles.css"
             ],
             "scripts": []
@@ -117,6 +121,7 @@
             "tsConfig": "app/tsconfig.spec.json",
             "karmaConfig": "app/karma.conf.js",
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "app/src/styles.css"
             ],
             "scripts": []
