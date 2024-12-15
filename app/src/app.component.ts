@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, forwardRef } from '@angular/core';
-import { CalendarOptions, Calendar, EventClickArg, EventInput } from '@fullcalendar/core';
+import { CalendarOptions, Calendar, EventClickArg, EventInput, EventApi } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin, { DateClickArg, EventDragStopArg } from '@fullcalendar/interaction';
 import { FullCalendarComponent } from '@fullcalendar/angular';
@@ -73,7 +73,7 @@ export class AppComponent implements OnInit {
   handleDateClick(arg: DateClickArg) {
     const dialogRef = this.dialog.open(EventDialogComponent, {
       width: '300px',
-      data: { startDate: arg.date }
+      data: { isEdit: false, startDate: arg.date }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -90,13 +90,18 @@ export class AppComponent implements OnInit {
       data: { event: arg.event } // Pass the clicked event
     });
   
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        console.log('Dialog closed with:', result);
+    dialogRef.afterClosed().subscribe(updatedEvent => {
+      if (updatedEvent) {
+        this.updateEvent(event, updatedEvent);
       }
     });
   }
-
+  updateEvent(event: any, updatedData: any) {
+    event.setProp('title', updatedData.title);
+    event.setStart(updatedData.start);
+    event.setEnd(updatedData.end);
+    event.setExtendedProp('priority', updatedData.priority);
+  }
   handleEventDragStop(arg: EventDragStopArg) {
     console.log(arg);
   }

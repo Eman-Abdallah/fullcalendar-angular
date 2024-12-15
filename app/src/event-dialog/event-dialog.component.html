@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Add Event</h2>
+<h1 mat-dialog-title>{{ data.isEdit ? 'Edit Event' : 'Add Event' }}</h1>
 <div mat-dialog-content>
   <mat-form-field appearance="fill">
     <mat-label>Event Title</mat-label>
@@ -23,6 +23,6 @@
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onCancel()">Cancel</button>
-  <button mat-button color="primary" (click)="onAddEvent()">Add Event</button>
+  <button mat-button color="primary" (click)="onAddEvent()">{{ data.isEdit ? 'Save Changes' : 'Add Event' }}</button>
 
 </div>
