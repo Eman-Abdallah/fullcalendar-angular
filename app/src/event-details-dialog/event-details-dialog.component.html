@@ -1,9 +1,41 @@
-<h2 mat-dialog-title>Event Details</h2>
+<h1 mat-dialog-title>{{ isEdit ? 'Edit Event' : 'Event Details' }}</h1>
 <div mat-dialog-content>
-  <p><strong>Title:</strong> {{ data.event.title }}</p>
-  <p><strong>Start:</strong> {{ data.event.start | date }}</p>
-  <p><strong>End:</strong> {{ data.event.end ==null?"Same day": subtractDays(data.event.end,1) | date }}</p>
+  <ng-container *ngIf="!isEdit; else editTemplate">
+    <p><strong>Title:</strong> {{ data.event.title }}</p>
+    <p><strong>Start Date:</strong> {{ data.event.start | date: 'short' }}</p>
+    <p><strong>End Date:</strong> {{ endDate ? (endDate | date) : 'Not Set' }}</p>
+    <p><strong>Priority:</strong> {{ data.event.priority }}</p>
+  </ng-container>
+
+  <ng-template #editTemplate>
+    <mat-form-field appearance="fill" style="display: block;">
+      <mat-label>Title</mat-label>
+      <input matInput [(ngModel)]="data.event.title" />
+    </mat-form-field>
+    <mat-form-field appearance="fill" style="display: block;">
+      <mat-label>Start Date</mat-label>
+      <input matInput [matDatepicker]="startPicker" [(ngModel)]="data.event.start" />
+      <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+      <mat-datepicker #startPicker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field appearance="fill" style="display: block;">
+      <mat-label>End Date</mat-label>
+      <input matInput [matDatepicker]="endPicker" [(ngModel)]="endDate" />
+      <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+      <mat-datepicker #endPicker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field appearance="fill" style="display: block;">
+      <mat-label>Priority</mat-label>
+      <mat-select [(value)]="data.event.priority">
+        <mat-option value="high">High</mat-option>
+        <mat-option value="medium">Medium</mat-option>
+        <mat-option value="low">Low</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </ng-template>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onClose()">Close</button>
+  <button mat-button (click)="onCancel()">Close</button>
+  <button mat-button *ngIf="!isEdit" color="primary" (click)="isEdit = true">Edit</button>
+  <button mat-button color="primary" *ngIf="isEdit" (click)="onSave()">Save Changes</button>
 </div>

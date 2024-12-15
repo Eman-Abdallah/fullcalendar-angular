@@ -11,7 +11,6 @@ export class EventDialogComponent {
   startDate = new Date(this.data.startDate); 
   endDate= new Date(this.data.startDate); 
   priority = 'medium'; // Default priority
-  isEdit=this.data.isEdit;
   priorities = [
     { value: 'high', viewValue: 'High' },
     { value: 'medium', viewValue: 'Medium' },

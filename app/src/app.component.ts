@@ -82,12 +82,36 @@ export class AppComponent implements OnInit {
       }
     });
   }
-
+  openAddDialog(selectedDate: Date) {
+    const dialogRef = this.dialog.open(EventDialogComponent, {
+      data: {
+        event: {
+          title: '',
+          start: selectedDate,
+          end: null,
+          priority: 'medium',
+        },
+      },
+    });
+  
+    dialogRef.afterClosed().subscribe(newEvent => {
+      if (newEvent) {
+        this.addEvent(newEvent.title, newEvent.start, newEvent.end, newEvent.priority);
+      }
+    });
+  }
   handleEventClick(arg: EventClickArg) {
-    console.log(arg.event );
+    const event = arg.event;
+  
     const dialogRef = this.dialog.open(EventDetailsDialogComponent, {
-      width: '400px',
-      data: { event: arg.event } // Pass the clicked event
+      data: {
+        event: {
+          title: event.title,
+          start: event.start,
+          end: event.end,
+          priority: event.extendedProps['priority'] || 'medium',
+        },
+      },
     });
   
     dialogRef.afterClosed().subscribe(updatedEvent => {
@@ -96,7 +120,7 @@ export class AppComponent implements OnInit {
       }
     });
   }
-  updateEvent(event: any, updatedData: any) {
+  updateEvent(event: EventApi, updatedData: any) {
     event.setProp('title', updatedData.title);
     event.setStart(updatedData.start);
     event.setEnd(updatedData.end);
